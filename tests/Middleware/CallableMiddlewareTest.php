@@ -8,6 +8,8 @@
  * located at the package root folder.
  */
 
+declare(strict_types=1);
+
 namespace WeCodeIn\Http\ServerMiddleware\Tests\Middleware;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
