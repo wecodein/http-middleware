@@ -19,37 +19,14 @@ composer require wecodein/http-middleware
 ## Usage
 
 ``` php
-use Http\Factory\Guzzle\ResponseFactory;
-use Http\Factory\Guzzle\ServerRequestFactory;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\ServerMiddleware\Dispatcher;
-use WeCodeIn\Http\ServerMiddleware\Middleware\CallableMiddleware;
+$dispatcher = (new Dispatcher($responseFactory))
+    ->insert($middleware1)
+    ->insert($middleware2);
 
-require_once './vendor/autoload.php';
-
-$serverRequestFactory = new ServerRequestFactory();
-$responseFactory = new ResponseFactory();
-$serverRequest = $serverRequestFactory->createServerRequest('GET', 'http://localhost');
-
-$noContentMiddleware = function (ServerRequestInterface $request, DelegateInterface $delegate) {
-    $response = $delegate->process($request);
-
-    if ($response->getBody()->getSize() === 0) {
-        return $response->withStatus(204, 'No Content');
-    }
-
-    return $response;
-};
-
-$delegate = new Dispatcher($responseFactory);
-$delegate->insert(new CallableMiddleware($noContentMiddleware));
-$response = $delegate($serverRequest);
-
-assert($response->getStatusCode() === 204, 'Assert that status code is 204');
-assert($response->getReasonPhrase() === 'No Content', 'Assert that reason phrase is `No Content`');
-
+$response = $dispatcher($serverRequest);
 ```
+
+See [examples][link-examples].
 
 ## Credits
 
@@ -74,3 +51,4 @@ Released under MIT License - see the [License File](LICENSE) for details.
 [link-pds]: https://github.com/php-pds/skeleton
 [link-author]: https://github.com/dutekvejin
 [link-contributors]: ../../contributors
+[link-examples]: examples
