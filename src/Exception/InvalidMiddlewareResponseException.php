@@ -12,9 +12,18 @@ declare(strict_types=1);
 
 namespace WeCodeIn\Http\ServerMiddleware\Exception;
 
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * @author Dusan Vejin <dutekvejin@gmail.com>
  */
-class InvalidMiddlewareResponseException extends \OutOfBoundsException
+class InvalidMiddlewareResponseException extends OutOfBoundsException
 {
+    public static function forMiddleware(MiddlewareInterface $middleware) : self
+    {
+        return new self(sprintf(
+            'Middleware %s did not return a %s', get_class($middleware), ResponseInterface::class
+        ));
+    }
 }

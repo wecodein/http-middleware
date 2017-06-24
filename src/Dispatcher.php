@@ -71,9 +71,7 @@ class Dispatcher implements DelegateInterface
         $response = $middleware->process($request, $this);
 
         if (!$response instanceof ResponseInterface) {
-            throw new InvalidMiddlewareResponseException(sprintf(
-                'Middleware %s did not return a %s', get_class($middleware), ResponseInterface::class
-            ));
+            throw InvalidMiddlewareResponseException::forMiddleware($middleware);
         }
 
         return $response;
