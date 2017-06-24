@@ -20,7 +20,7 @@ use WeCodeIn\Http\ServerMiddleware\Middleware\CallableMiddleware;
 
 /**
  * Class CallableMiddlewareTest
- * @package Franky\Http\ServerMiddleware\Middleware
+ * @package WeCodeIn\Http\ServerMiddleware\Middleware
  */
 class CallableMiddlewareTest extends TestCase
 {

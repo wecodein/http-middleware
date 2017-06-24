@@ -22,7 +22,7 @@ use Http\Factory\Guzzle\ResponseFactory;
 use Http\Factory\Guzzle\ServerRequestFactory;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\ServerMiddleware\Delegate;
+use WeCodeIn\Http\ServerMiddleware\Dispatcher;
 use WeCodeIn\Http\ServerMiddleware\Middleware\CallableMiddleware;
 
 require_once './vendor/autoload.php';
@@ -41,7 +41,7 @@ $noContentMiddleware = function (ServerRequestInterface $request, DelegateInterf
     return $response;
 };
 
-$delegate = new Delegate($responseFactory);
+$delegate = new Dispatcher($responseFactory);
 $delegate->insert(new CallableMiddleware($noContentMiddleware));
 $response = $delegate($serverRequest);
 

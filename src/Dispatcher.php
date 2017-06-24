@@ -19,10 +19,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Class Delegate
+ * Class Dispatcher
  * @package WeCodeIn\Http\ServerMiddleware
  */
-class Delegate implements DelegateInterface
+class Dispatcher implements DelegateInterface
 {
 
     /**
@@ -52,9 +52,9 @@ class Delegate implements DelegateInterface
     /**
      * @param MiddlewareInterface $middleware
      * @param int $priority
-     * @return Delegate
+     * @return Dispatcher
      */
-    public function insert(MiddlewareInterface $middleware, int $priority = 0) : Delegate
+    public function insert(MiddlewareInterface $middleware, int $priority = 0) : Dispatcher
     {
         $this->queue->insert($middleware, [$priority, $this->serial--]);
         return $this;

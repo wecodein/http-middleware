@@ -18,13 +18,13 @@ use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\ServerMiddleware\Delegate;
+use WeCodeIn\Http\ServerMiddleware\Dispatcher;
 
 /**
- * Class DelegateTest
- * @package Franky\Http\ServerMiddleware
+ * Class DispatcherTest
+ * @package WeCodeIn\Http\ServerMiddleware
  */
-class DelegateTest extends TestCase
+class DispatcherTest extends TestCase
 {
 
     /**
@@ -38,7 +38,7 @@ class DelegateTest extends TestCase
         $responseFactory->method('createResponse')
             ->willReturn($defaultResponse);
 
-        $delegate = new Delegate($responseFactory);
+        $delegate = new Dispatcher($responseFactory);
         $response = $delegate($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -63,7 +63,7 @@ class DelegateTest extends TestCase
                 return $delegate->process($request);
             });
 
-        $delegate = new Delegate($responseFactory);
+        $delegate = new Dispatcher($responseFactory);
         $delegate->insert($middleware);
         $delegate->insert($middleware);
         $delegate->process($request);
@@ -87,7 +87,7 @@ class DelegateTest extends TestCase
                 return $delegate->process($request);
             });
 
-        $delegate = new Delegate($responseFactory);
+        $delegate = new Dispatcher($responseFactory);
         $delegate->insert($middleware);
         $delegate->insert($middleware);
         $delegate($request);
@@ -111,7 +111,7 @@ class DelegateTest extends TestCase
 
         $this->expectException(\OutOfBoundsException::class);
 
-        $delegate = new Delegate($responseFactory);
+        $delegate = new Dispatcher($responseFactory);
         $delegate->insert($middleware);
         $delegate->process($request);
     }
