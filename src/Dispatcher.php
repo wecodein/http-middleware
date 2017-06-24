@@ -17,6 +17,7 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use WeCodeIn\Http\ServerMiddleware\Exception\InvalidMiddlewareResponseException;
 
 /**
  * @author Dusan Vejin <dutekvejin@gmail.com>
@@ -70,7 +71,7 @@ class Dispatcher implements DelegateInterface
         $response = $middleware->process($request, $this);
 
         if (!$response instanceof ResponseInterface) {
-            throw new \OutOfBoundsException(sprintf(
+            throw new InvalidMiddlewareResponseException(sprintf(
                 'Middleware %s did not return a %s', get_class($middleware), ResponseInterface::class
             ));
         }

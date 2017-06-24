@@ -19,6 +19,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use WeCodeIn\Http\ServerMiddleware\Dispatcher;
+use WeCodeIn\Http\ServerMiddleware\Exception\InvalidMiddlewareResponseException;
 
 /**
  * @author Dusan Vejin <dutekvejin@gmail.com>
@@ -96,7 +97,7 @@ class DispatcherTest extends TestCase
     /**
      * @group ServerMiddleware
      */
-    public function testBadMiddlewareReturnType()
+    public function testInvalidMiddlewareResponse()
     {
         $request = $this->createMock(ServerRequestInterface::class);
         $defaultResponse = $this->createMock(ResponseInterface::class);
@@ -108,7 +109,7 @@ class DispatcherTest extends TestCase
         $middleware->method('process')
             ->willReturn('test');
 
-        $this->expectException(\OutOfBoundsException::class);
+        $this->expectException(InvalidMiddlewareResponseException::class);
 
         $delegate = new Dispatcher($responseFactory);
         $delegate->insert($middleware);
