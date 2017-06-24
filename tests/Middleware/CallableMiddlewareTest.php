@@ -2,7 +2,7 @@
 /**
  * This file is part of the http-middleware package.
  *
- * Copyright (c) wecodein
+ * Copyright (c) Dusan Vejin
  *
  * For full copyright and license information, please refer to the LICENSE file,
  * located at the package root folder.
