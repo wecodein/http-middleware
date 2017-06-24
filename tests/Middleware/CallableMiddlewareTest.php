@@ -19,8 +19,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use WeCodeIn\Http\ServerMiddleware\Middleware\CallableMiddleware;
 
 /**
- * Class CallableMiddlewareTest
- * @package WeCodeIn\Http\ServerMiddleware\Middleware
+ * @author Dusan Vejin <dutekvejin@gmail.com>
  */
 class CallableMiddlewareTest extends TestCase
 {

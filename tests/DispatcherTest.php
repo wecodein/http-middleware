@@ -21,8 +21,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use WeCodeIn\Http\ServerMiddleware\Dispatcher;
 
 /**
- * Class DispatcherTest
- * @package WeCodeIn\Http\ServerMiddleware
+ * @author Dusan Vejin <dutekvejin@gmail.com>
  */
 class DispatcherTest extends TestCase
 {

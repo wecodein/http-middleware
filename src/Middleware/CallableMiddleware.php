@@ -18,29 +18,20 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Class CallableMiddleware
- * @package WeCodeIn\Http\ServerMiddleware\Middleware
+ * @author Dusan Vejin <dutekvejin@gmail.com>
  */
 class CallableMiddleware implements MiddlewareInterface
 {
-
     /**
      * @var callable
      */
     protected $callable;
 
-    /**
-     * CallableMiddleware constructor.
-     * @param callable $callable
-     */
     public function __construct(callable $callable)
     {
         $this->callable = $callable;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
     {
         return ($this->callable)($request, $delegate);

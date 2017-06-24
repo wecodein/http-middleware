@@ -19,12 +19,10 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Class Dispatcher
- * @package WeCodeIn\Http\ServerMiddleware
+ * @author Dusan Vejin <dutekvejin@gmail.com>
  */
 class Dispatcher implements DelegateInterface
 {
-
     /**
      * @var \SplPriorityQueue
      */
@@ -40,45 +38,28 @@ class Dispatcher implements DelegateInterface
      */
     protected $responseFactory;
 
-    /**
-     * @param ResponseFactoryInterface $responseFactory
-     */
     public function __construct(ResponseFactoryInterface $responseFactory)
     {
         $this->queue = new \SplPriorityQueue();
         $this->responseFactory = $responseFactory;
     }
 
-    /**
-     * @param MiddlewareInterface $middleware
-     * @param int $priority
-     * @return Dispatcher
-     */
     public function insert(MiddlewareInterface $middleware, int $priority = 0) : Dispatcher
     {
         $this->queue->insert($middleware, [$priority, $this->serial--]);
         return $this;
     }
 
-    /**
-     * @return MiddlewareInterface
-     */
     public function extract() : MiddlewareInterface
     {
         return $this->queue->extract();
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty() : bool
     {
         return $this->queue->isEmpty();
     }
 
-    /**
-     * @inheritdoc
-     */
     public function process(ServerRequestInterface $request) : ResponseInterface
     {
         if ($this->isEmpty()) {
@@ -97,19 +78,12 @@ class Dispatcher implements DelegateInterface
         return $response;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
-     */
     public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
         $delegate = clone $this;
         return $delegate->process($request);
     }
 
-    /**
-     * Clone queue to allow multiple processing of same queue.
-     */
     public function __clone()
     {
         $this->queue = clone $this->queue;
