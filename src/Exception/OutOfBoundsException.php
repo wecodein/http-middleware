@@ -10,11 +10,8 @@
 
 declare(strict_types=1);
 
-namespace WeCodeIn\Http\ServerMiddleware\Exception;
+namespace WeCodeIn\Http\Server\Exception;
 
-/**
- * @author Dusan Vejin <dutekvejin@gmail.com>
- */
 class OutOfBoundsException extends \OutOfBoundsException implements ExceptionInterface
 {
 }

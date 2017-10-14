@@ -19,11 +19,8 @@ composer require wecodein/http-middleware
 ## Usage
 
 ``` php
-$dispatcher = (new Dispatcher($responseFactory))
-    ->insert($middleware1)
-    ->insert($middleware2);
-
-$response = $dispatcher($serverRequest);
+$requestHandler = new RequestHandler($responseFactory, ...$middlewares);
+$response = $requestHandler($serverRequest);
 ```
 
 See [examples][link-examples].

@@ -10,38 +10,25 @@
 
 declare(strict_types=1);
 
-namespace WeCodeIn\Http\ServerMiddleware\Tests\Middleware;
+namespace WeCodeIn\Http\Server\Tests\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\ServerMiddleware\Middleware\CallableMiddleware;
+use WeCodeIn\Http\Server\Middleware\CallableMiddleware;
+use WeCodeIn\Http\Server\Tests\TestCase;
 
-/**
- * @author Dusan Vejin <dutekvejin@gmail.com>
- */
 class CallableMiddlewareTest extends TestCase
 {
-
-    /**
-     * @group ServerMiddleware
-     */
-    public function testReturnDefaultResponse()
+    public function testProcessReturnsCallableProducedResponse()
     {
-        $request = $this->createMock(ServerRequestInterface::class);
-        $defaultResponse = $this->createMock(ResponseInterface::class);
-        $delegate = $this->createMock(DelegateInterface::class);
+        $callable = function () use (&$responseReturnedByCallable) {
+            return $responseReturnedByCallable = $this->createResponse();
+        };
 
-        $callable = $this->createPartialMock(\stdClass::class, ['__invoke']);
-        $callable->expects($this->once())
-            ->method('__invoke')
-            ->with($request, $delegate)
-            ->willReturn($defaultResponse);
+        $request = $this->createServerRequest();
+        $handler = $this->createRequestHandler();
 
         $middleware = new CallableMiddleware($callable);
-        $response = $middleware->process($request, $delegate);
+        $responseReturnedByCallableMiddleware = $middleware->process($request, $handler);
 
-        $this->assertSame($defaultResponse, $response);
+        $this->assertSame($responseReturnedByCallable, $responseReturnedByCallableMiddleware);
     }
 }

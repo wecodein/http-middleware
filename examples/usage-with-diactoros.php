@@ -6,24 +6,25 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Http\Factory\Diactoros\ResponseFactory;
 use Http\Factory\Diactoros\ServerRequestFactory;
-use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\ServerMiddleware\Dispatcher;
-use WeCodeIn\Http\ServerMiddleware\Middleware\CallableMiddleware;
+use WeCodeIn\Http\Server\RequestHandler;
+use WeCodeIn\Http\Server\Middleware\CallableMiddleware;
 
-$dispatcher =
-    (new Dispatcher(new ResponseFactory()))
-        ->insert(new CallableMiddleware(
-            function (ServerRequestInterface $request, DelegateInterface $delegate) {
-                return $delegate->process($request)
-                    ->withStatus(204, 'No Content');
-            }
-        ));
+$serverRequestFactory = new ServerRequestFactory();
+$serverRequest = $serverRequestFactory->createServerRequest('GET', 'http://localhost');
 
-$response = $dispatcher(
-    (new ServerRequestFactory())
-        ->createServerRequest('GET', 'http://localhost/')
+$returnNoContentMiddleware = new CallableMiddleware(
+    function (ServerRequestInterface $request, RequestHandlerInterface $requestHandler) {
+        return $requestHandler->handle($request)
+            ->withStatus(204, 'No Content');
+    }
 );
+
+$middlewares = [$returnNoContentMiddleware];
+
+$requestHandler = new RequestHandler(new ResponseFactory(), ...$middlewares);
+$response = $requestHandler->handle($serverRequest);
 
 assert($response->getStatusCode() === 204);
 assert($response->getReasonPhrase() === 'No Content');

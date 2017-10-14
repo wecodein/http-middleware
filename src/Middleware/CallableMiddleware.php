@@ -10,21 +10,15 @@
 
 declare(strict_types=1);
 
-namespace WeCodeIn\Http\ServerMiddleware\Middleware;
+namespace WeCodeIn\Http\Server\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
+use Interop\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @author Dusan Vejin <dutekvejin@gmail.com>
- */
 class CallableMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var callable
-     */
     protected $callable;
 
     public function __construct(callable $callable)
@@ -32,8 +26,8 @@ class CallableMiddleware implements MiddlewareInterface
         $this->callable = $callable;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        return ($this->callable)($request, $delegate);
+        return ($this->callable)($request, $handler);
     }
 }
