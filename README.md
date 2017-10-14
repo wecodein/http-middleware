@@ -6,7 +6,7 @@
 [![Latest Version][ico-version]][link-packagist]
 [![PDS Skeleton][ico-pds]][link-pds]
 
-PSR-15 compliant implementation for dispatching middleware pipelines.
+PSR-15 compliant implementation for processing middleware queues.
 
 ## Installation
 
