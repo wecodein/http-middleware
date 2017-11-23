@@ -20,7 +20,8 @@
     "require": {
         "php": "^7.0",
         "http-interop/http-factory": "^0.3.0",
-        "http-interop/http-middleware": "^0.5.0"
+        "http-interop/http-server-handler": "^1.0",
+        "http-interop/http-server-middleware": "^1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.7",

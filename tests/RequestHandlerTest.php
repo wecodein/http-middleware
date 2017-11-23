@@ -71,21 +71,6 @@ class RequestHandlerTest extends TestCase
         $this->assertSame($responseReturnedByMiddlewareQueue, $responseReturnedByHandler);
     }
 
-    public function testHandleThrowsInvalidMiddlewareResponseExceptionForInvalidResponseProducedByMiddleware()
-    {
-        $invalidResponseProducedByMiddlewareQueue = 'InvalidResponseProducedByMiddleware';
-
-        $middlewares = [];
-        $middlewares[] = $this->getMockForMiddleware($this->any(), $invalidResponseProducedByMiddlewareQueue);
-
-        $request = $this->createServerRequest();
-
-        $this->expectException(InvalidMiddlewareResponseException::class);
-
-        $handler = $this->createRequestHandler(...$middlewares);
-        $handler->handle($request);
-    }
-
     protected function getMockForMiddleware(Invocation $matcher, $response = null)
     {
         $middleware = $this->createMock(MiddlewareInterface::class);

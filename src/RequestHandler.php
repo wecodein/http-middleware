@@ -41,12 +41,6 @@ class RequestHandler implements RequestHandlerInterface
         $middleware = current($handler->middlewares);
         next($handler->middlewares);
 
-        $response = $middleware->process($request, $handler);
-
-        if (!$response instanceof ResponseInterface) {
-            throw InvalidMiddlewareResponseException::forMiddleware($middleware);
-        }
-
-        return $response;
+        return $middleware->process($request, $handler);
     }
 }
