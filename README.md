@@ -20,7 +20,7 @@ composer require wecodein/http-middleware
 
 ``` php
 $requestHandler = new RequestHandler($responseFactory, ...$middlewares);
-$response = $requestHandler($serverRequest);
+$response = $requestHandler->handle($serverRequest);
 ```
 
 See [examples][link-examples].
