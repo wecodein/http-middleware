@@ -17,7 +17,6 @@ use Interop\Http\Server\RequestHandlerInterface;
 use Interop\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\Server\Exception\InvalidMiddlewareResponseException;
 
 class RequestHandler implements RequestHandlerInterface
 {

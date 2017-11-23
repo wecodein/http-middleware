@@ -17,7 +17,6 @@ use Interop\Http\Server\RequestHandlerInterface;
 use PHPUnit_Framework_MockObject_Matcher_Invocation as Invocation;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use WeCodeIn\Http\Server\Exception\InvalidMiddlewareResponseException;
 
 class RequestHandlerTest extends TestCase
 {
