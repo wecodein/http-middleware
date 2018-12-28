@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace WeCodeIn\Http\Server\Middleware;
 
-use Interop\Http\Server\RequestHandlerInterface;
-use Interop\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class CallableMiddleware implements MiddlewareInterface
 {
@@ -26,7 +26,7 @@ class CallableMiddleware implements MiddlewareInterface
         $this->callable = $callable;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         return ($this->callable)($request, $handler);
     }

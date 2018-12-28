@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace WeCodeIn\Http\Server\Tests;
 
-use Interop\Http\Server\MiddlewareInterface;
-use Interop\Http\Server\RequestHandlerInterface;
-use PHPUnit_Framework_MockObject_Matcher_Invocation as Invocation;
+use PHPUnit\Framework\MockObject\Matcher\Invocation;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class RequestHandlerTest extends TestCase
 {

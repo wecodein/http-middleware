@@ -6,8 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Http\Factory\Diactoros\ResponseFactory;
 use Http\Factory\Diactoros\ServerRequestFactory;
-use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use WeCodeIn\Http\Server\RequestHandler;
 use WeCodeIn\Http\Server\Middleware\CallableMiddleware;
 
